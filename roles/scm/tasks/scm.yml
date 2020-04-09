@@ -1,0 +1,19 @@
+---
+
+# https://cloudera.github.io/cm_api/apidocs/v13/path__cm_config.html
+- name: Update Cloudera Manager settings
+  uri:
+    url: "{{ cm_api_url }}/cm/config"
+    method: PUT
+    body_format: json
+    body: "{{ lookup('template', 'scm.j2', convert_data=False) }}"
+    status_code: 200
+    force_basic_auth: yes
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    return_content: yes
+  register: scm_resp
+
+- debug:
+    var: scm_resp
+    verbosity: 1

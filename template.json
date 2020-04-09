@@ -1,0 +1,267 @@
+{
+    "cdhVersion": "6.3.2", 
+    "cmVersion": "6.3.1", 
+    "displayName": "Cluster 2", 
+    "hostTemplates": [
+        {
+            "cardinality": 1, 
+            "refName": "HostTemplate-0-from-4d92d0ab-2fa6-4d9d-bef5-dbf0f5dc29ab.priv.cloud.scaleway.com", 
+            "roleConfigGroupsRefNames": [
+                "hdfs-SECONDARYNAMENODE-BASE"
+            ]
+        }, 
+        {
+            "cardinality": 1, 
+            "refName": "HostTemplate-1-from-af69cab2-e36b-4048-9d16-54baab54e444.priv.cloud.scaleway.com", 
+            "roleConfigGroupsRefNames": [
+                "hdfs-BALANCER-BASE", 
+                "hdfs-NAMENODE-BASE", 
+                "hive-HIVEMETASTORE-BASE", 
+                "hive-HIVESERVER2-BASE", 
+                "hue-HUE_LOAD_BALANCER-BASE", 
+                "hue-HUE_SERVER-BASE", 
+                "oozie-OOZIE_SERVER-BASE", 
+                "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                "yarn-JOBHISTORY-BASE", 
+                "yarn-RESOURCEMANAGER-BASE", 
+                "zookeeper-SERVER-BASE"
+            ]
+        }, 
+        {
+            "cardinality": 4, 
+            "refName": "HostTemplate-2-from-5bbfde80-b2f4-41e0-9d02-34543cc65a59.priv.cloud.scaleway.com; 988f8d04-1967-435c-b14b-8677ce0aa65e.priv.cloud.scaleway.com; 9be03b15-82c3-4267-b002-0327139227b1.priv.cloud.scaleway.com; a69e598d-36f4-43ee-802d-3cd8f6585966.priv.cloud.scaleway.com", 
+            "roleConfigGroupsRefNames": [
+                "hdfs-DATANODE-BASE", 
+                "hive-GATEWAY-BASE", 
+                "spark_on_yarn-GATEWAY-BASE", 
+                "yarn-NODEMANAGER-BASE"
+            ]
+        }
+    ], 
+    "instantiator": {
+        "clusterName": "<changeme>", 
+        "hosts": [
+            {
+                "hostName": "<changeme>", 
+                "hostTemplateRefName": "<changeme>"
+            }, 
+            {
+                "hostNameRange": "<HOST[0001-0002]>", 
+                "hostTemplateRefName": "<changeme>"
+            }
+        ], 
+        "variables": [
+            {
+                "name": "hive-hive_metastore_database_host", 
+                "value": "4d92d0ab-2fa6-4d9d-bef5-dbf0f5dc29ab.priv.cloud.scaleway.com"
+            }, 
+            {
+                "name": "hive-hive_metastore_database_password", 
+                "value": "<changeme>"
+            }, 
+            {
+                "name": "hue-database_host", 
+                "value": "4d92d0ab-2fa6-4d9d-bef5-dbf0f5dc29ab.priv.cloud.scaleway.com"
+            }, 
+            {
+                "name": "hue-database_password", 
+                "value": "<changeme>"
+            }, 
+            {
+                "name": "hue-database_type", 
+                "value": "mysql"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_host", 
+                "value": "4d92d0ab-2fa6-4d9d-bef5-dbf0f5dc29ab.priv.cloud.scaleway.com"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_password", 
+                "value": "<changeme>"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_type", 
+                "value": "mysql"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_user", 
+                "value": "oozie"
+            }
+        ]
+    }, 
+    "products": [
+        {
+            "product": "CDH", 
+            "version": "6.3.2-1.cdh6.3.2.p0.1605554"
+        }
+    ], 
+    "repositories": [
+        "https://archive.cloudera.com/cdh6/6.3.2/parcels"
+    ], 
+    "services": [
+        {
+            "refName": "zookeeper", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zookeeper-SERVER-BASE", 
+                    "roleType": "SERVER"
+                }
+            ], 
+            "serviceType": "ZOOKEEPER"
+        }, 
+        {
+            "refName": "oozie", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "oozie_database_user", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
+                        }, 
+                        {
+                            "name": "oozie_database_host", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
+                        }, 
+                        {
+                            "name": "oozie_database_type", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
+                        }, 
+                        {
+                            "name": "oozie_database_password", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
+                        }
+                    ], 
+                    "refName": "oozie-OOZIE_SERVER-BASE", 
+                    "roleType": "OOZIE_SERVER"
+                }
+            ], 
+            "serviceType": "OOZIE"
+        }, 
+        {
+            "refName": "hue", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_SERVER-BASE", 
+                    "roleType": "HUE_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_LOAD_BALANCER-BASE", 
+                    "roleType": "HUE_LOAD_BALANCER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "database_password", 
+                    "variable": "hue-database_password"
+                }, 
+                {
+                    "name": "database_type", 
+                    "variable": "hue-database_type"
+                }, 
+                {
+                    "name": "database_host", 
+                    "variable": "hue-database_host"
+                }
+            ], 
+            "serviceType": "HUE"
+        }, 
+        {
+            "refName": "spark_on_yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "SPARK_ON_YARN"
+        }, 
+        {
+            "refName": "hdfs", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hdfs-NAMENODE-BASE", 
+                    "roleType": "NAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-SECONDARYNAMENODE-BASE", 
+                    "roleType": "SECONDARYNAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-DATANODE-BASE", 
+                    "roleType": "DATANODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-BALANCER-BASE", 
+                    "roleType": "BALANCER"
+                }
+            ], 
+            "serviceType": "HDFS"
+        }, 
+        {
+            "refName": "yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "yarn-RESOURCEMANAGER-BASE", 
+                    "roleType": "RESOURCEMANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "yarn-NODEMANAGER-BASE", 
+                    "roleType": "NODEMANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "yarn-JOBHISTORY-BASE", 
+                    "roleType": "JOBHISTORY"
+                }
+            ], 
+            "serviceType": "YARN"
+        }, 
+        {
+            "refName": "hive", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hive-HIVESERVER2-BASE", 
+                    "roleType": "HIVESERVER2"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hive-HIVEMETASTORE-BASE", 
+                    "roleType": "HIVEMETASTORE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hive_metastore_database_password", 
+                    "variable": "hive-hive_metastore_database_password"
+                }, 
+                {
+                    "name": "hive_metastore_database_host", 
+                    "variable": "hive-hive_metastore_database_host"
+                }
+            ], 
+            "serviceType": "HIVE"
+        }
+    ]
+}

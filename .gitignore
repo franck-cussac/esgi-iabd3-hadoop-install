@@ -1,0 +1,16 @@
+*.py[cod]
+*.so
+*.iml
+.idea/
+.DS_Store
+docker
+*test*
+*.retry
+.vagrant
+Vagrantfile
+venv
+*.tfstate
+*.tfstate.backup
+.terraform
+tf_hosts
+infra/CREDENTIALS.json

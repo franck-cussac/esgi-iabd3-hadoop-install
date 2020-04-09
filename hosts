@@ -1,0 +1,35 @@
+[scm_server]
+manager.sagean.fr
+
+[db_server]
+manager.sagean.fr
+
+[utility_servers:children]
+scm_server
+db_server
+
+[gateway_servers]
+edge.sagean.fr        host_template=HostTemplate-Gateway
+
+[edge_servers]
+edge.sagean.fr        host_template=HostTemplate-Edge    role_ref_names=HDFS-HTTPFS-1
+
+[master_servers]
+master.sagean.fr        host_template=HostTemplate-Master1
+
+[worker_servers]
+worker1.sagean.fr
+worker2.sagean.fr
+worker3.sagean.fr
+
+[worker_servers:vars]
+host_template=HostTemplate-Workers
+
+[cdh_servers:children]
+utility_servers
+gateway_servers
+master_servers
+worker_servers
+
+[all:vars]
+ansible_user=root
