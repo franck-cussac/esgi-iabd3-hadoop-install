@@ -52,7 +52,7 @@ master_servers
 worker_servers
 
 [cdh_servers:vars]
-ansible_user=${var.user}
+ansible_user=${var.gcp_ssh_user}
   EOF
   filename = "${path.module}/../tf_hosts"
 }

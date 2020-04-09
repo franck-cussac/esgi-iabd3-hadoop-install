@@ -11,13 +11,9 @@ variable "machine_type" {
 }
 
 variable "gcp_ssh_user" {
-  default = "believe"
+  type = string
 }
 
 variable "gcp_ssh_pub_key_file" {
   default = "~/.ssh/id_rsa.pub"
-}
-
-variable "user" {
-  default = "believe"
 }
