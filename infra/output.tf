@@ -6,12 +6,12 @@ resource "local_file" "hosts" {
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 
-${google_compute_instance.manager.network_interface.0.network_ip} ${google_compute_instance.manager.instance_id}
-${google_compute_instance.master.network_interface.0.network_ip} ${google_compute_instance.master.instance_id}
-${google_compute_instance.edge.network_interface.0.network_ip} ${google_compute_instance.edge.instance_id}
-${google_compute_instance.worker_1.network_interface.0.network_ip} ${google_compute_instance.worker_1.instance_id}
-${google_compute_instance.worker_2.network_interface.0.network_ip} ${google_compute_instance.worker_2.instance_id}
-${google_compute_instance.worker_3.network_interface.0.network_ip} ${google_compute_instance.worker_3.instance_id}
+${google_compute_instance.manager.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.manager.network_interface.0.network_ip} ${google_compute_instance.manager.instance_id}
+${google_compute_instance.master.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.master.network_interface.0.network_ip} ${google_compute_instance.master.instance_id}
+${google_compute_instance.edge.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.edge.network_interface.0.network_ip} ${google_compute_instance.edge.instance_id}
+${google_compute_instance.worker_1.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.worker_1.network_interface.0.network_ip} ${google_compute_instance.worker_1.instance_id}
+${google_compute_instance.worker_2.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.worker_2.network_interface.0.network_ip} ${google_compute_instance.worker_2.instance_id}
+${google_compute_instance.worker_3.network_interface.0.access_config.0.nat_ip} ${google_compute_instance.worker_3.network_interface.0.network_ip} ${google_compute_instance.worker_3.instance_id}
   EOF
   filename = "${path.module}/../roles/prepare/files/hosts"
 }

@@ -2,7 +2,7 @@
 
 An Ansible Playbook that installs the Cloudera stack on RHEL/CentOS
 
-## scaleway install
+## cloud install
 
 1. launch instance on scaleway with `cd infra && terraform apply && cd ..`
 2. `pip install jmespath`
