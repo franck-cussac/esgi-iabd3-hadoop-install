@@ -14,15 +14,3 @@
   reboot:
     msg: "the sky is falling"
   when: disable_selinux.changed
-
-- name: set hostname
-  hostname:
-    name: "{{ inventory_hostname | regex_replace('\\.pub\\.cloud\\.scaleway\\.com$', '') }}"
-
-- name: set /etc/hosts
-  copy:
-    src: hosts
-    dest: /etc/hosts
-    owner: root
-    group: root
-    mode: u=rx,g=rx,o=rwx

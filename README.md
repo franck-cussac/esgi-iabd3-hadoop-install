@@ -4,9 +4,19 @@ An Ansible Playbook that installs the Cloudera stack on RHEL/CentOS
 
 ## cloud install
 
-1. launch instance on scaleway with `cd infra && terraform apply && cd ..`
-2. `pip install jmespath`
-3. launch ansible playbook with the generate `tf_host` inventory `ansible-playbook -i tf_hosts site.yml`
+1. create instance on GCP with `cd infra && terraform apply && cd ..`
+2. connect to the deploy instance and
+    - install python3 & git `sudo yum install -y python3 git`
+    - install ansible `pip3 install --user ansible`
+    - clone this repository
+    - send the `tf_host` file created by terraform on this machine
+    - send your private ssh key on the machine or ensure the ssh key are trusted by all machine
+    - from this host connect to each instance of the cluster using FQDN `ssh edge.c.cosmic-sensor-277618.internal`
+3. launch ansible playbook with the generated `tf_host` inventory `ansible-playbook -i tf_hosts site.yml`
+4. when the playbook finish connect to the manager on port 7180 and proceed to cluster installation (you should disable all your adblocker)
+
+## DB info
+db credential information are set in `group_vars/db_server.yml`
 
 ## Running the playbook
 
@@ -116,34 +126,6 @@ For example ``roles/cdh/templates/hdfs.j2``:
   "name": "datanode_java_heapsize",
   "variable": "DATANODE_JAVA_HEAPSIZE"
 }
-```
-
-## Prepare host
-
-- set FQDN
-```
-vi /etc/hosts
-
-127.0.1.1       localhost2
-127.0.0.1       localhost
-::1             localhost ip6-localhost ip6-loopback
-ff02::1         ip6-allnodes
-ff02::2         ip6-allrouters
-
-51.15.138.44     manager.sagean.fr manager
-163.172.158.245  master.sagean.fr master
-163.172.189.182  edge.sagean.fr edge
-51.15.140.234    worker1.sagean.fr worker1
-212.47.248.93    worker2.sagean.fr worker2
-51.15.142.67     worker3.sagean.fr worker3
-```
-
-
-- disable SELINUX
-```
-setenforce 0
-sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-getenforce
 ```
 
 License

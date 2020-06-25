@@ -1,5 +1,5 @@
 variable "project_name" {
-  default = "learn-gcp-terra"
+  default = "cosmic-sensor-277618"
 }
 
 variable "gcp_region" {
@@ -7,7 +7,7 @@ variable "gcp_region" {
 }
 
 variable "machine_type" {
-  default = "c2-standard-4"
+  default = "n1-standard-4"
 }
 
 variable "gcp_ssh_user" {
